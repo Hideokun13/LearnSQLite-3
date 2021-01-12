@@ -1,5 +1,13 @@
+"""
+--- LearnSQLite-3 Program ---
+Description: This is example of login system using Python 3.8 + SQLite 3 and PyCharm IDE
+Author: Hideokun13
+Github: https://github.com/Hideokun13
+Requirement Skill: basic python + basic SQL (using SELECT and INSERT function)
+"""
+
 import sqlite3
-DB_connect = sqlite3.connect('testLogin.db')
+DB_connect = sqlite3.connect('testLogin.db') #Create a SQL connection
 
 def main():
     print("=== Welcome to the project-db login system ===")
@@ -26,7 +34,7 @@ def Register():
     print("new password: ")
     inputPassword = getInput()
     try:
-        executeCode = "INSERT INTO UserAccount (username, password) VALUES (" + "'" + inputUsername + "'" + "," + "'" + inputPassword + "'" + ");"
+        executeCode = "INSERT INTO UserAccount (username, password) VALUES (" + "'" + inputUsername + "'" + "," + "'" + inputPassword + "'" + ");" #SQL code to execute INSERT data function
         DB_connect.execute(executeCode)
         DB_connect.commit()
         print("Register Successful!")
@@ -39,15 +47,15 @@ def Register():
         input("Press enter to continue")
     main()
 def LoginCheck (input_user, input_pass):
-    isMatch = False
-    cursor = DB_connect.execute("SELECT username, password FROM UserAccount;")
-    for row in cursor:
+    isMatch = False #
+    cursor = DB_connect.execute("SELECT username, password FROM UserAccount;") #SQL code to read username and password in "UserAccount" table which it's in database
+    for row in cursor: #read data each row in "UserAccount" table
         if(input_user == row[0] and input_pass == row[1]):
             print("=========================")
             print("Welcome! " + row[0])
             print("=========================")
-            isMatch = True
-    if(isMatch != True):
+            isMatch = True #username and password has valid in database
+    if(isMatch != True): #if cannot find any username and password
         print("Login Failed! : please try again")
         input("Press enter to continue")
         main()
